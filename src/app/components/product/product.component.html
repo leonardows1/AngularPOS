@@ -1,0 +1,6 @@
+<app-product-img *ngIf="product.productImages != null" [img]="product.productImages[0].url"></app-product-img>
+<h2>{{ product.salePrice | currency:'COP'}}</h2>
+<p>{{ product.description }}</p>
+<button (click)="editProduct()">Editar</button>
+<button (click)="onShowDetail()">Show detail</button>
+<button (click)="onAddToCart()">Add cart</button>

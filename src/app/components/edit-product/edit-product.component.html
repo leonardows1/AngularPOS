@@ -1,0 +1,49 @@
+<h1 mat-dialog-title>Editar Producto</h1>
+<!-- <app-alert [color]="alert.color" [mensaje]="alert.message" [hidden]="!alert.isVisible"></app-alert> -->
+<div mat-dialog-content>
+  <form>
+    <mat-form-field>
+      <mat-label>Código</mat-label>
+      <input matInput placeholder="85545XXXXX" [(ngModel)]="editProduct.code" name="code">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Descripción</mat-label>
+      <textarea matInput placeholder="Descripción del producto" [(ngModel)]="editProduct.description" name="description"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Categoria</mat-label>
+      <input
+        type="text"
+        placeholder=""
+        matInput
+        [matAutocomplete]="auto" [formControl]="formControl">
+        <mat-autocomplete autoActiveFirstOption #auto>
+          <mat-option *ngFor="let category of filterCategoryList | async" [value]="category.name" (onSelectionChange)="selectCategory(category.categoryId)">{{ category.name }}</mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Costo</mat-label>
+      <input type="number" matInput placeholder="Costo del producto" [(ngModel)]="editProduct.purchasePrice" name="purchasePrice">
+      <span matTextPrefix>$&nbsp;</span>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Precio de venta</mat-label>
+      <input type="number" matInput placeholder="Precio de venta del producto" [(ngModel)]="editProduct.salePrice" name="salePrice">
+      <span matTextPrefix>$&nbsp;</span>
+    </mat-form-field>
+    <div *ngFor="let image of editProduct.productImages; let i = index">
+      <mat-form-field>
+        <mat-label>Imagen {{ image.index + 1 }}</mat-label>
+        <input type="text" matInput placeholder="Url" (keyup)="print(i)" [(ngModel)]="editProduct.productImages[i].url" name="url{{i}}"/>
+      </mat-form-field>
+      <button mat-raised-button color="secondary" (click)="removeField(i)">Remover</button>
+    </div>
+    <button mat-raised-button color="primary" (click)="addField()">Añadir</button>
+    <mat-slide-toggle [checked]="editProduct.isActive" (toggleChange)="activeProduct()">{{ isActiveProduct }}</mat-slide-toggle>
+  </form>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onClickEdit()">Editar</button>
+  <button mat-button (click)="onClickCancel()">Cancelar</button>
+</div>

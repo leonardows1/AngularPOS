@@ -1,0 +1,19 @@
+<button mat-button (click)="openCreateNewProduct()">Crear producto</button>
+<div class="products--grid">
+    <app-product [product]="product"
+                 *ngFor="let product of products"
+                 (addedProduct)="onAddToShopingCart($event)"
+                 (showProduct)="onShowDetail($event)"
+                 (productId)="openEditProduct(product.productId)">
+    </app-product>
+</div>
+<div class="product-detail" [class.active]="showProductDetail">
+    <div *ngIf="productChosen">
+        <button (click)="toggleProductDetail()">Close</button>
+        <h1>{{ productChosen.code }}</h1>
+        <ng-template *ngFor="let img of productChosen.productImages">
+          <img [src]="img.url" width="200" alt="Product"/>
+      </ng-template>
+        <p>{{ productChosen.description }}</p>
+    </div>
+</div>
