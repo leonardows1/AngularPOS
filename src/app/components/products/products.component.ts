@@ -77,6 +77,7 @@ export class ProductsComponent {
     });
     dialogRef.afterClosed().subscribe(res => {
       console.log(res);
+
       this.updateProducts();
     })
   }
