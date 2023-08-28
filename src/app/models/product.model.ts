@@ -1,7 +1,7 @@
 import { CategoryDTO } from "./category.model";
 import { ProductImageDTO } from "./productImage.model";
 
-export interface ProductDTO{
+export interface ProductDTO {
   productId: string;
   code: string;
   description: string;
@@ -10,12 +10,15 @@ export interface ProductDTO{
   category: CategoryDTO;
   productImages: ProductImageDTO[];
   isActive: boolean;
+  taxes?: number;
 }
 
-export interface CreateProductDTO extends Omit<ProductDTO, 'productId' | 'category'>{
+export interface CreateProductDTO extends Omit<ProductDTO, 'taxes' | 'productId' | 'category'> {
   categoryId: string;
 }
 
-export interface UpdateProductDTO extends Omit<ProductDTO, 'category'>{
+export interface UpdateProductDTO extends Omit<ProductDTO, 'taxes' | 'category'> {
   categoryId: string;
 }
+
+export interface UpdatePartialProductDTO extends Partial<UpdateProductDTO> {}

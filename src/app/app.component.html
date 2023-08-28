@@ -1,2 +1,12 @@
-<app-nav></app-nav>
-<app-products></app-products>
+<app-dashboard>
+
+</app-dashboard>
+<button (click)="createUser()">Crear usuario</button>
+<button (click)="login()">Login</button>
+<button (click)="getRols()">Roles</button>
+<a href="./../assets/text.txt" download>Descargar</a>
+<button (click)="downloadPdf()">Descargar PDF</button>
+<p>
+  <input type="file" (change)="onUpload($event)">
+  <img *ngIf="imgRta" [src]="imgRta">
+</p>

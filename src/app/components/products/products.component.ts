@@ -5,6 +5,7 @@ import { StoreService } from 'src/app/services/store.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateProductComponent } from '../create-product/create-product.component';
 import { EditProductComponent } from '../edit-product/edit-product.component';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-products',
@@ -29,6 +30,10 @@ export class ProductsComponent {
     productImages: [],
     isActive: false
   }
+  initLimit: number = 3;
+  initOffset: number = 0;
+  limit: number = this.initLimit;
+  offset: number = this.initOffset;
 
   constructor(
     public dialog: MatDialog,
@@ -39,11 +44,11 @@ export class ProductsComponent {
   }
 
   ngOnInit(): void {
-    this.updateProducts();
+    this.updateProductsList(this.initLimit, this.initOffset);
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.updateProducts();
+    this.updateProductsList(this.initLimit, this.initOffset);
   }
 
   onAddToShopingCart(product: ProductDTO) {
@@ -56,18 +61,29 @@ export class ProductsComponent {
   }
 
   onShowDetail(productId: string) {
+    this.toggleProductDetail();
     this.productService.getProduct(productId).subscribe(data => {
-      this.toggleProductDetail();
       this.productChosen = data;
-    })
+    }, error => {
+      window.alert(error);
+      console.log(error);
+    });
   }
 
-  updateProducts() {
-    this.productService.getAllProducts()
+  updateProductsList(limit?: number, offset?: number, reload?: boolean) {
+
+    this.productService.getAllProducts(limit, offset)
       .subscribe(data => {
-        this.products = [];
-        this.products = data;
-        console.log(data);
+        if (reload) {
+          this.products = data;
+          this.limit = this.initLimit;
+          this.offset = this.initOffset;
+        }
+        else{
+          this.products = this.products.concat(data);
+        }
+        this.offset += this.limit;
+        console.log(this.products);
       });
   }
 
@@ -77,8 +93,7 @@ export class ProductsComponent {
     });
     dialogRef.afterClosed().subscribe(res => {
       console.log(res);
-
-      this.updateProducts();
+      this.updateProductsList(this.initLimit, this.initOffset, true);
     })
   }
 
@@ -89,7 +104,11 @@ export class ProductsComponent {
     });
     dialogRef.afterClosed().subscribe(res => {
       console.log(res);
-      this.updateProducts();
+      this.updateProductsList(this.initLimit, this.initOffset, true);
     })
+  }
+
+  loadMore(){
+    this.updateProductsList(this.limit, this.offset);
   }
 }

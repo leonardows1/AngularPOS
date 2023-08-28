@@ -51,7 +51,7 @@ export class EditProductComponent implements OnInit {
     this.updateCategories();
     this.filterCategoryList = this.formControl.valueChanges.pipe(
       startWith(''), map(value => this.filterCategory(value || ''))
-    )
+    );
     if (this.data && this.data.productId) {
       this.editProduct = this.getProduct(this.data.productId);
     }
