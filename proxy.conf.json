@@ -1,0 +1,6 @@
+{
+  "/api": {
+    "target": "http://apileo.somee.com",
+    "secure": false
+  }
+}

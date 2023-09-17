@@ -1,0 +1,46 @@
+<header class="show-mobile">
+  <div>
+      <button (click)="toggleMenu()">
+          <img src="https://logodownload.org/wp-content/uploads/2014/04/oracle-logo-1-2.png" alt="menu">
+      </button>
+      <a href="">
+          <img src="https://cdn-icons-png.flaticon.com/512/1831/1831655.png" alt="logo">
+      </a>
+      <a href="">
+          <img src="https://cdn-icons-png.flaticon.com/512/5713/5713065.png" alt="logo">
+      </a>
+  </div>
+  <div class="side-menu" [class.active]="activeMenu">
+      <button (click)="toggleMenu()">Close</button>
+      <ul>
+          <li><a routerLinkActive="active" routerLink="home">All</a></li>
+          <li *ngFor="let category of categories">
+            <a routerLinkActive="active" [routerLink]="['category/', category.categoryId]">{{ category.name }}</a>
+          </li>
+      </ul>
+  </div>
+</header>
+<header class="hide-mobile">
+  <div>
+      <nav>
+          <a class="logo" href="">
+              <img src="https://logodownload.org/wp-content/uploads/2014/04/oracle-logo-1-2.png" alt="logo">
+          </a>
+          <ul>
+            <li><a routerLinkActive="active" routerLink="home">All</a></li>
+            <li *ngFor="let category of categories">
+              <a routerLinkActive="active" [routerLink]="['category/', category.categoryId]">{{ category.name }}</a>
+            </li>
+          </ul>
+      </nav>
+      <div class="info">
+          <div class="account">nicolas@nicolas.com</div>
+          <div>
+              <a href="">
+                  <img src="https://cdn-icons-png.flaticon.com/512/5713/5713065.png" alt="logo">
+              </a>
+              <span class="counter">{{ counter }}</span>
+          </div>
+      </div>
+  </div>
+</header>

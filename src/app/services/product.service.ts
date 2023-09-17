@@ -5,13 +5,14 @@ import { PatchDTO } from '../models/patch.model';
 import { retry, catchError, map } from 'rxjs/operators'
 import { throwError } from 'rxjs'
 import { checkTime } from '../interceptors/time.interceptor';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  private productsApiUrl = 'https://localhost:7155/api/product/';
+  private productsApiUrl: string = `${environment.API_URL}product/`;
   private headers = new HttpHeaders({ 'Content-Type': 'application/json-patch+json' });
 
   constructor(
@@ -47,12 +48,12 @@ export class ProductService {
     .pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status == HttpStatusCode.BadRequest) {
-          return throwError('Error al buscar el producto')
+          return throwError(error.message)
         }
         if (error.status == HttpStatusCode.NotFound) {
-          return throwError('No se encontró el producto')
+          return throwError(error.message)
         }
-        return throwError('Ups, algo salió mal')
+        return throwError(error.message)
       })
     )
   }

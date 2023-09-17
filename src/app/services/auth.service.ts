@@ -22,7 +22,7 @@ export class AuthService {
     console.log(`${this.apiUrl}/login`, login);
     return this.http.post<Auth>(`${this.apiUrl}/login`, login)
     .pipe(
-      // tap(response => this.tokenService.saveToken(response.accessToken))
+      tap(response => this.tokenService.saveToken(response.accessToken))
     );
   }
 
@@ -31,10 +31,10 @@ export class AuthService {
   }
 
   getRols(){
-    // let headers = new HttpHeaders();
-    // headers = headers.set('Authorization', `Bearer ${token}`);
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', `Bearer ${this.tokenService.getToken()}`);
     return this.http.get(`${environment.API_URL}rol`,{
-      // headers : headers
+      headers : headers
     })
   }
 }
