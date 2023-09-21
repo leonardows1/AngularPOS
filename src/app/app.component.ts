@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { UsersService } from './services/users.service';
 import { FilesService } from './services/files.service';
+import { TokenService } from './services/token.service';
+import { tap } from 'rxjs/internal/operators/tap';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'ProductsAngular';
   imgRta = '';
   /**
@@ -17,8 +19,16 @@ export class AppComponent {
   constructor(
     private authService: AuthService,
     private userService: UsersService,
-    private fileService: FilesService
+    private fileService: FilesService,
+    private tokenService: TokenService
   ) { }
+
+  ngOnInit(): void {
+    const token = this.tokenService.getToken();
+    if (token) {
+      this.authService.getProfile().subscribe();
+    }
+  }
 
   createUser() {
     this.userService.create({
@@ -30,16 +40,6 @@ export class AppComponent {
     })
       .subscribe(rta => {
         console.log(rta);
-      })
-  }
-
-  login() {
-    this.authService.login({
-      userNameOrEmail: 'admin2',
-      password: 'admin2'
-    })
-      .subscribe(rta => {
-        console.log(rta.accessToken);
       })
   }
 

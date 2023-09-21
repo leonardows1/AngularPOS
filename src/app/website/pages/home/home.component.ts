@@ -24,7 +24,6 @@ export class HomeComponent {
     this.updateProductsList(this.limit, this.offset, true);
     this.route.queryParamMap.subscribe(params =>{
       this.productId = params.get('product');
-      console.log(this.productId);
     })
   }
 
@@ -33,7 +32,6 @@ export class HomeComponent {
       .subscribe(data => {
         this.offset += this.limit + 1;
         this.products = this.products.concat(data);
-        console.log('Cargar más', this.products);
       });
   }
 
@@ -50,7 +48,6 @@ export class HomeComponent {
           this.products = this.products.concat(data);
         }
         this.offset += this.limit;
-        console.log('Actualización', this.products);
       });
   }
 }

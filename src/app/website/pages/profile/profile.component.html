@@ -1,1 +1,7 @@
-<p>profile works!</p>
+<div *ngIf="user">
+  <h1>My Profile</h1>
+  <p>Nombre: {{ user.userName }}</p>
+  <p>Email: {{ user.email }}</p>
+  <p>Rol: {{ user.rol.name }}</p>
+  <a *ngIf="user.rol.name === 'Administrador'" routerLink="/cms">Ir al CMS</a>
+</div>

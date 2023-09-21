@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { saveAs } from 'file-saver';
 import { tap, map } from 'rxjs';
-import { environment } from 'src/environments/environment.development';
-
 interface File{
   originalName: string,
   fileName: string,

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CreateUserDTO, User, UserDTO } from '../models/user.model';
+import { CreateUserDTO, UserDTO } from '../models/user.model';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({

@@ -14,9 +14,9 @@
       <button (click)="toggleMenu()">Close</button>
       <ul>
           <li><a routerLinkActive="active" routerLink="home">All</a></li>
-          <li *ngFor="let category of categories">
+          <!-- <li *ngFor="let category of categories">
             <a routerLinkActive="active" [routerLink]="['category/', category.categoryId]">{{ category.name }}</a>
-          </li>
+          </li> -->
       </ul>
   </div>
 </header>
@@ -28,13 +28,19 @@
           </a>
           <ul>
             <li><a routerLinkActive="active" routerLink="home">All</a></li>
-            <li *ngFor="let category of categories">
+            <!-- <li *ngFor="let category of categories">
               <a routerLinkActive="active" [routerLink]="['category/', category.categoryId]">{{ category.name }}</a>
-            </li>
+            </li> -->
           </ul>
       </nav>
       <div class="info">
-          <div class="account">nicolas@nicolas.com</div>
+          <div class="account">
+            <button *ngIf="!profile; else elseBlock" (click)="login()">Login</button>
+        <ng-template #elseBlock>
+          <a routerLink="/profile">{{ profile?.email }}</a>
+          <button (click)="logout()">Logout</button>
+        </ng-template>
+          </div>
           <div>
               <a href="">
                   <img src="https://cdn-icons-png.flaticon.com/512/5713/5713065.png" alt="logo">

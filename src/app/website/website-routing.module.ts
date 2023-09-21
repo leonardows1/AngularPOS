@@ -4,6 +4,10 @@ import { HomeComponent } from './pages/home/home.component';
 import { MyCartComponent } from './pages/my-cart/my-cart.component';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 import { LayoutComponent } from './components/layout/layout.component';
+import { AuthGuard } from '../guards/auth.guard';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { exitGuard } from '../guards/exit.guard';
+import { RegisterComponent } from './pages/register/register.component';
 
 const routes: Routes = [
   {
@@ -34,6 +38,16 @@ const routes: Routes = [
       {
         path: 'product/:productId',
         component: ProductDetailsComponent
+      },
+      {
+        path: 'register',
+        canDeactivate: [exitGuard],
+        component: RegisterComponent
+      },
+      {
+        path: 'profile',
+        canActivate: [AuthGuard],
+        component: ProfileComponent
       }
     ]
   }
